@@ -14,7 +14,7 @@
 |                                                     |           Original (average_luminance=0.666)            |                                                     |
 | :-------------------------------------------------: | :-----------------------------------------------------: | :-------------------------------------------------: |
 |                                                     |          ![rgb_original](img/rgb_original.png)          |                                                     |
-|  **target_luminance = 0.4; fixed scaling method**   |   **target_luminance = 0.4; average of two methods**    |   **target_luminance = 0.4; fixed delta method**    |
+|  **target_luminance = 0.4; fixed scale method**   |   **target_luminance = 0.4; average of two methods**    |   **target_luminance = 0.4; fixed shift method**    |
 | ![rgb_luminance_scale](img/rgb_luminance_scale.png) | ![rgb_luminance_average](img/rgb_luminance_average.png) | ![rgb_luminance_shift](img/rgb_luminance_shift.png) |
 
 
