@@ -150,15 +150,15 @@ def set_luminance(inname, target_luminance, mixing_coeff=1.0, suffix='luminance'
     There are two ways to adjust the luminance of a given image. One is to multiply
     luminance of each pixels with a fixed scaling factor. This will create more nature
     looks, but are easier to be limited by highlight pixels. Another one is to add a
-    fixed delta value to luminance of each pixels. This wont change the contract, but 
-    may result in absences of pure black and white in the output image.
+    fixed shift value to luminance of each pixels. This may result in absences of pure 
+    black and white in the output image.
 
     This function can use both of those methods, and default to use the "fixed scaling" 
     method. you can use the optional argument *mixing_coeff* to control which method are
     used, or use both methods and mix their results together.
 
     The final luminance *L'* of a pixel which has original luminance *L* is:
-    *L' = a \* (L \* scale) + b \* (L + delta)*, where *a* and *b* are weights controlled by 
+    *L' = a \* (L \* scale) + b \* (L + shift)*, where *a* and *b* are weights controlled by 
     *mixing_coeff* and *a* + *b* is always 1.
 
     **Parameters**
@@ -173,7 +173,7 @@ def set_luminance(inname, target_luminance, mixing_coeff=1.0, suffix='luminance'
             control mixing of results of two methods, on scale from -3.0 to 3.0. Default is 1.0,
             which is only use "fixed scaling" method. Value of 0.0 will use the average of 
             two methods. Positive value increase weight of "fixed scaling" method, while 
-            negative value increase weight of "fixed delta" method. Value of 1 and -1 will 
+            negative value increase weight of "fixed shift" method. Value of 1 and -1 will 
             effectively "turn off" the other method. And value beyond 1 or -1 will resulting 
             in negative value of *b* or *a*, which usually leads to wired result but can be 
             useful in some cases.
@@ -210,13 +210,13 @@ def set_luminance(inname, target_luminance, mixing_coeff=1.0, suffix='luminance'
     print('[set_luminance] input average luminance: %.4f' % input_avg_luminance)
     print('[set_luminance] target average luminance: %.4f' % target_luminance)
 
-    # luminance transform function L' = f(L) = alpha * (L * scale)  +  beta * (L + delta)
+    # luminance transform function L' = f(L) = alpha * (L * scale)  +  beta * (L + shift)
     alpha, beta = (1 + mixing_coeff) / 2.0, (1 - mixing_coeff) / 2.0
     scale = target_luminance / input_avg_luminance
-    delta = target_luminance - input_avg_luminance
-    f = lambda L: alpha * (L * scale) + beta * (L + delta)
+    shift = target_luminance - input_avg_luminance
+    f = lambda L: alpha * (L * scale) + beta * (L + shift)
     print("[set_luminance] mixing_coeff = %.2f, L' = f(L) = %.2f * (L * %.4f) + %.2f * (L + %.4f)" % 
-          (mixing_coeff, alpha, scale, beta, delta))
+          (mixing_coeff, alpha, scale, beta, shift))
 
     # Function for calculating result data of one pixel
     # Because sanitized_img is always an 8-bit image, we can hard code 255 as limit.
@@ -262,6 +262,7 @@ def set_luminance(inname, target_luminance, mixing_coeff=1.0, suffix='luminance'
 
 if __name__ == '__main__':
 
+    # Sample images can be download from https://github.com/chentl/SoftwareCarpentryWC3/tree/master/img_processing
     # Test blur and luminance adjusting functions using images in different color modes
     for test_pic in ['pic_rgb.png', 'pic_rgba.png', 'pic_palette.png', 'pic_cmyk.jpg', 'pic_lab.tif']:
         blur(test_pic)
@@ -269,5 +270,5 @@ if __name__ == '__main__':
 
     # Test different mixing_coeff for set_luminance
     set_luminance('pic_rgb.png', 0.4, mixing_coeff=0.0, suffix='luminance_average')
-    set_luminance('pic_rgb.png', 0.4, mixing_coeff=1.0, suffix='luminance_scaling')
-    set_luminance('pic_rgb.png', 0.4, mixing_coeff=-1.0, suffix='luminance_delta')
+    set_luminance('pic_rgb.png', 0.4, mixing_coeff=1.0, suffix='luminance_scale')
+    set_luminance('pic_rgb.png', 0.4, mixing_coeff=-1.0, suffix='luminance_shift')
