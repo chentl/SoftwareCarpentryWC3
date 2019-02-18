@@ -18,3 +18,5 @@
 | ![rgb_luminance_scaling](img/rgb_luminance_scaling.png) | ![rgb_luminance_average](img/rgb_luminance_average.png) |    ![rgb_luminance_delta](img/rgb_luminance_delta.png)    |
 
 
+
+ <a href="https://github.com/chentl/SoftwareCarpentryWC3/tree/master/img_processing" class="btn">View on GitHub</a>
