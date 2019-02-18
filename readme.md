@@ -2,10 +2,10 @@
 
 ## Blur effect
 
-|                        |                Original                 |             Blurred             |
-| :--------------------: | :-------------------------------------: | :-----------------------------: |
-|          RGB           |  ![rgb_original](img/rgb_original.png)  |  ![rgb_blur](img/rgb_blur.png)  |
-| RGB with Alpha channel | ![rgba_original](img/rgba_original.png) | ![rgba_blur](img/rgba_blur.png) |
+|                        |                       Original                       |                   Blurred                    |
+| :--------------------: | :--------------------------------------------------: | :------------------------------------------: |
+|          RGB           |        ![rgb_original](img/rgb_original.png)         |        ![rgb_blur](img/rgb_blur.png)         |
+| RGB with Alpha channel | ![rgba_original](img/rgba_original_checkerboard.png) | ![rgba_blur](img/rgba_blur_checkerboard.png) |
 
 
 
